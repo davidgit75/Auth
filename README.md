@@ -2,5 +2,6 @@
 
 This app is a basic login using **Firebase**
 
-![Alt SuccessScreen]()
-![Alt FailScreen]()
+![Alt LoadingScreen](https://github.com/davidgit75/Auth/blob/master/loadingscreen.png)
+
+![Alt FailScreen](https://github.com/davidgit75/Auth/blob/master/faillscreen.png)
