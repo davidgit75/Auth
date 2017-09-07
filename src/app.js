@@ -1,13 +1,25 @@
-//import liraries
+//import libraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
 
-import { Header } from './components/common';
-import LoginForm from './components/LoginForm';
+// import scenes
+import Login from './scenes/Login';
+import Home from './scenes/Home';
+
+// import navigation
+// import CreateNavigator from './Navigation';
+
+// import components
+import { Button, Header, Spinner } from './components/common';
 
 // create a component
 class App extends Component {
+  state = {
+    user: 'myuser',
+    loggedIn: null
+  };
+
   componentWillMount() {
     const config = {
       apiKey: "AIzaSyCIkuJ_9kC4XAbsiZwR0AYbLORysrnKGsE",
@@ -18,17 +30,51 @@ class App extends Component {
       messagingSenderId: "464341380765"
     };
     firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ loggedIn: false });
+      }
+    });
+  }
+
+  renderContent() {
+    const { loggedIn } = this.state;
+    switch (loggedIn) {
+      case true:
+        return (
+          <View style={{ padding: 5, flexDirection: 'row' }}>
+            <Button
+              onPress={() => firebase.auth().signOut()}
+            >
+              Log Out
+            </Button>
+          </View>
+        );
+      case false:
+        return <Login />;
+      default:
+        return <Spinner size='large' />;
+    }
   }
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Header text='Authentication' />
-        <LoginForm />
+        {this.renderContent()}
       </View>
     );
   }
 }
+
+const styles = {
+  container: {
+    flex: 1
+  }
+};
 
 //make this component available to the app
 export default App;

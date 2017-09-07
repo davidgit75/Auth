@@ -4,10 +4,10 @@ import {
   StyleSheet
 } from 'react-native';
 
-const Card = (props) => {
+const Card = ({ children, styleContainer = {} }) => {
   return (
-    <View style={styles.container}>
-      {props.children}
+    <View style={[styles.container, styleContainer]}>
+      {children}
     </View>
   );
 };

@@ -21,7 +21,10 @@ class FormLogin extends Component {
   }
 
   onLoginFail() {
-    this.setState({ error: 'Authentication failed.', loading: false });
+    this.setState({
+      error: 'Authentication failed.',
+      loading: false
+    });
   }
 
   onLoginSuccess() {
@@ -47,10 +50,10 @@ class FormLogin extends Component {
   }
 
   render() {
-    const { errorTextStyle } = styles;
+    const { errorTextStyle, cardContainerStyle } = styles;
 
     return (
-      <Card>
+      <Card styleContainer={cardContainerStyle}>
         <CardSection>
           <Input
             label='Email'
@@ -88,6 +91,10 @@ const styles = {
     alignSelf: 'center',
     color: 'red',
     marginTop: 10
+  },
+  cardContainerStyle: {
+    justifyContent: 'center',
+    marginTop: 180
   }
 };
 
